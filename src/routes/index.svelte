@@ -10,6 +10,14 @@
 		font-weight: 700;
 		margin: 0 0 0.5em 0;
 	}
+/*
+	.hero {
+		background: url(/home-hero.png) center center no-repeat;
+		background-size: cover;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	} */
 
 	figure {
 		margin: 0 0 1em 0;
@@ -35,12 +43,3 @@
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Success Kid' src='successkid.jpg'>
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>

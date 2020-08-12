@@ -1,3 +1,9 @@
+const ENV = process.env.APP_ENV || "dev";
+require("dotenv").config({ path: `./.environment.${ENV}` });
+
+const { API_URL_SUBMIT_RESULT, API_URL_GET_HIGH_SCORES } = process.env;
+
+import json from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import commonjs from "@rollup/plugin-commonjs";
@@ -32,9 +38,17 @@ export default {
     input: config.client.input(),
     output: config.client.output(),
     plugins: [
+      json(),
       replace({
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.APP_ENV": JSON.stringify(ENV),
+        "process.env.API_URL_SUBMIT_RESULT": JSON.stringify(
+          API_URL_SUBMIT_RESULT
+        ),
+        "process.env.API_URL_GET_HIGH_SCORES": JSON.stringify(
+          API_URL_GET_HIGH_SCORES
+        ),
       }),
       svelte({
         dev,
@@ -77,7 +91,6 @@ export default {
           module: true,
         }),
     ],
-
     preserveEntrySignatures: false,
     onwarn,
   },
@@ -86,9 +99,17 @@ export default {
     input: config.server.input(),
     output: config.server.output(),
     plugins: [
+      json(),
       replace({
         "process.browser": false,
         "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.APP_ENV": JSON.stringify(ENV),
+        "process.env.API_URL_SUBMIT_RESULT": JSON.stringify(
+          API_URL_SUBMIT_RESULT
+        ),
+        "process.env.API_URL_GET_HIGH_SCORES": JSON.stringify(
+          API_URL_GET_HIGH_SCORES
+        ),
       }),
       svelte({
         generate: "ssr",
@@ -118,6 +139,13 @@ export default {
       replace({
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.APP_ENV": JSON.stringify(ENV),
+        "process.env.API_URL_SUBMIT_RESULT": JSON.stringify(
+          API_URL_SUBMIT_RESULT
+        ),
+        "process.env.API_URL_GET_HIGH_SCORES": JSON.stringify(
+          API_URL_GET_HIGH_SCORES
+        ),
       }),
       commonjs(),
       !dev && terser(),
