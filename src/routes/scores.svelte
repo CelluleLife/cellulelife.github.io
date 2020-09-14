@@ -1,5 +1,12 @@
 <script context="module">
 	export async function preload() {
+		const ignoredSeeds = [
+			'Bim',
+			'Coles',
+			'Wall',
+			'hmm',
+			'Ligma',
+		];
 		const result = await this.fetch(process.env.API_URL_GET_HIGH_SCORES);
 
 		const highScoresBySeed = {};
@@ -10,6 +17,11 @@
 			data.scores.map(score => {
 				const seedLabel = score.seed_label;
 				console.log({seedLabel})
+
+				if(ignoredSeeds.indexOf(seedLabel) > -1) {
+					return;
+				}
+
 				const modificationCount = score.modifications.length;
 
 				if(!highScoresBySeed[seedLabel]) {

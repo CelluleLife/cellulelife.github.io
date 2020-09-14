@@ -1,4 +1,23 @@
-<style>
+<script>
+
+import SplitSvg from '../../static/score.svg';
+import WeightSvg from '../../static/weight.svg';
+import ScoreSvg from '../../static/score.svg';
+
+const svgProps = {
+	width: '80%',
+	height: 'auto',
+	fill: '#f69d3c',
+	// stroke: 'rgba(0,0,0,0.2)',
+};
+
+let shouldAnimate = false;
+setTimeout(() => {
+  shouldAnimate = true;
+}, 1000)
+
+</script>
+<style lang="scss">
 
   .how-it-works-description {
     width: 400px;
@@ -9,9 +28,38 @@
 
   .how-it-works-list {
     margin: 0 auto;
-    width: 400px;
-    max-width: 100%;
-    list-style: disc;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    li {
+      display: block;
+      width: 100%;
+    }
+
+    .slide-animation-wrapper {
+      max-width: 300px;
+      transition: margin-left 300ms;
+      margin-left: 0;
+
+      &.first {
+        &.done {
+          margin-left: calc(33% - 150px);
+        }
+      }
+      &.second {
+        &.done {
+          margin-left: calc(50% - 150px);
+        }
+
+      }
+      &.third {
+        &.done {
+          margin-left: calc(66% - 150px);
+        }
+      }
+    }
   }
 
   .descriptions {
@@ -45,6 +93,11 @@
       width: 50%;
     }
   }
+
+
+  svg {
+    filter: drop-shadow(0,0,5px, #000);
+  }
 </style>
 
 <svelte:head>
@@ -54,10 +107,28 @@
 <h1>Getting Started</h1>
 <p class="how-it-works-description">At its heart, this is just a Game of Life sandbox. Relax and just watch it unfold. If you want to try and make it into the High scores, read on.</p>
 <ul class="how-it-works-list">
-  <li>The game consists of 2 main "games".</li>
-  <li>They are both played in the same game mode, we just weight various metrics differently.</li>
-  <li class="warning">There will eventually be more game modes with more levels of interaction. Stay Tuned!!!</li>
+  <li>
+    <div class="slide-animation-wrapper first {shouldAnimate && 'done'}">
+      <div><SplitSvg {...svgProps} /></div>
+      <div>The game consists of 2 main "games", a game of Life and a game of Death</div>
+    </div>
+  </li>
+  <li>
+    <div class="slide-animation-wrapper second {shouldAnimate && 'done'}">
+      <div><WeightSvg {...svgProps} /></div>
+      <div>They are both played in the same game mode, we just weight various metrics differently.</div>
+    </div>
+  </li>
+  <li>
+    <div class="slide-animation-wrapper third {shouldAnimate && 'done'}">
+      <div><ScoreSvg {...svgProps} /></div>
+      <div>
+        At the end, we check to see if you might have made it ontoto the high score list for your seed and edit count.
+      </div>
+    </div>
+  </li>
 </ul>
+  <div class="warning">There will eventually be more game modes with more levels of interaction. Stay Tuned!!!</div>
 
 <div class="descriptions">
   <div class="game-mode-description">

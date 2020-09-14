@@ -5,7 +5,7 @@
 	export let segment;
 </script>
 
-<style>
+<style lang="scss">
 	main.page {
 		position: relative;
 		max-width: 56em;
@@ -28,26 +28,25 @@
 
 	.video-background-wrapper {
 		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
+		top: -20px;
+		bottom: calc(100vh - 400px);
+		left: -20px;
+		right: -20px;
 		z-index: -100;
 		overflow: hidden;
+		transition: bottom 300ms;
 	}
 
 	video.background {
-		position: absolute;
+		/* position: absolute;
 		top: 0;
-		left: 0;
-		height: 100%;
+		left: 0; */
+		height: calc(100% + 20px);
 		width: 100%;
 		object-fit: cover;
 		filter: blur(10px);
 		z-index: -100;
 		display: block;
-		transform: scale(1.0);
-		/* transform: scale(1.13); */
 		overflow: hidden;
 	}
 
@@ -56,8 +55,11 @@
 		transition: height 300ms;
 		font-size: 40px;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-bottom: 42px;
+		text-align: center;
 	}
 
 	.page-title {
@@ -67,32 +69,57 @@
 		transition: font-size 300ms;
 	}
 
-	.hero-wrapper.home {
-		height: 100vh;
+	.hero-wrapper {
+
+
+		&.home {
+			height: 100vh;
+			overflow-x: hidden;
+
+			.hero-inner-wrapper {
+				overflow: scroll-y;
+			}
+
+
+			.video-background-wrapper {
+				bottom: -20px;
+			}
+
+			.title-wrapper {
+				height: calc(100vh - 80px);
+			}
+
+			.page-title {
+				font-size: 80px;
+			}
+		}
 	}
 
-	.hero-wrapper.home .title-wrapper {
-		height: calc(100vh - 80px);
-	}
-
-	.hero-wrapper.home .page-title {
-		font-size: 80px;
+	.home-page-route-wrapper {
+		width: 100%;
 	}
 </style>
 
 <div class="hero-wrapper {!segment && 'home' }">
 	<div class="hero-inner-wrapper">
-		<video loop muted autoplay class="background" src="/cellulelife-2.mp4"></video>
+		<div class="video-background-wrapper">
+			<video loop muted autoplay class="background" src="/cellulelife-2.mp4"></video>
+		</div>
 		<Nav class="main-nav" {segment}/>
 
 		<div class="title-wrapper">
 			<h1 class="page-title">
 				{#if !segment }
-					CELLULE LIFE
+					Cellule Life
 				{:else}
 					{segment}
 				{/if}
 			</h1>
+			<div class="home-page-route-wrapper">
+				{#if !segment }
+					<slot></slot>
+				{/if}
+			</div>
 		</div>
 
 		{#if segment }

@@ -10,10 +10,17 @@
 	export let segment;
 </script>
 
-<style>
+<style lang="scss">
 
 nav {
 	padding: 16px;
+	background: rgb(246, 157, 60);
+	color: #000;
+
+	a, a.nav-title-link {
+		color: #000;
+		text-decoration:  none;
+	}
 }
 
 ul {
@@ -37,7 +44,7 @@ a[aria-current="page"] {
 
 <nav>
 	<ul>
-		<li><a aria-current="{isSegmentActive(segment)}" href=".">
+		<li><a class="nav-title-link" aria-current="{isSegmentActive(segment)}" href=".">
 			<h1>Cellule Life</h1>
 		</a></li>
 
